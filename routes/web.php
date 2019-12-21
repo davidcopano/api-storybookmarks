@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Http\Request;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -11,6 +13,8 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::middleware('auth:api')->get('/', function (Request $request) {
+    return $request->user();
 });
+
+Auth::routes();
