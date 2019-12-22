@@ -13,8 +13,10 @@ use Illuminate\Http\Request;
 |
 */
 
+Route::group(['prefix', 'auth'], function() {
+    Route::post('/login', 'Auth\LoginController@validateLogin');
+});
+
 Route::middleware('auth:api')->get('/', function (Request $request) {
     return $request->user();
 });
-
-Auth::routes();
