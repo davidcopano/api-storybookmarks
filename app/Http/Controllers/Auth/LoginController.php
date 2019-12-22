@@ -12,12 +12,15 @@ class LoginController extends Controller
     public function validateLogin(Request $request)
     {
         $request->validate([
-            'email' => 'email',
+            'email' => 'required|email',
             'password' => 'required'
         ]);
         $credentials = $request->only('email', 'password');
         if (auth()->attempt($credentials)) {
-            return auth()->user();
+            $api_token = auth()->user()->createToken('storybookmarks')->accessToken;
+            $user = auth()->user()->toArray();
+            $user['api_token'] = $api_token;
+            return $user;
         }
         else {
             throw ValidationException::withMessages([
