@@ -7,17 +7,21 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * App\Bookmark
  *
- * @property int $id
- * @property int|null $user_id
- * @property int|null $tag_id
- * @property string|null $folder_id
+ * @property string $id
+ * @property int $user_id
+ * @property int $tag_id
+ * @property string $folder_id
  * @property string $title
  * @property string $url
  * @property string $color
- * @property string|null $note
- * @property \Illuminate\Support\Carbon $created_at
- * @property int|null $public
- * @property string|null $expiration_date Expiration date if public bookmark
+ * @property string $note
+ * @property string $created_at
+ * @property boolean $public
+ * @property string $expiration_date
+ * @property Folder $folder
+ * @property FosUser $fosUser
+ * @property Tag $tag
+ * @property-read \App\User|null $user
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Bookmark newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Bookmark newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Bookmark query()
@@ -36,5 +40,53 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Bookmark extends Model
 {
+    /**
+     * The table associated with the model.
+     *
+     * @var string
+     */
     protected $table = 'bookmark';
+
+    /**
+     * The "type" of the auto-incrementing ID.
+     *
+     * @var string
+     */
+    protected $keyType = 'string';
+
+    /**
+     * Indicates if the IDs are auto-incrementing.
+     *
+     * @var bool
+     */
+    public $incrementing = false;
+
+    /**
+     * @var array
+     */
+    protected $fillable = ['user_id', 'tag_id', 'folder_id', 'title', 'url', 'color', 'note', 'created_at', 'public', 'expiration_date'];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function folder()
+    {
+        return $this->belongsTo('App\Folder');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user()
+    {
+        return $this->belongsTo('App\User', 'user_id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function tag()
+    {
+        return $this->belongsTo('App\Tag');
+    }
 }

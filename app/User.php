@@ -2,10 +2,7 @@
 
 namespace App;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Passport\HasApiTokens;
+use Illuminate\Database\Eloquent\Model;
 
 /**
  * App\User
@@ -15,17 +12,23 @@ use Laravel\Passport\HasApiTokens;
  * @property string $username_canonical
  * @property string $email
  * @property string $email_canonical
- * @property int $enabled
- * @property string|null $salt
+ * @property boolean $enabled
+ * @property string $salt
  * @property string $password
- * @property string|null $last_login
- * @property string|null $confirmation_token
- * @property string|null $password_requested_at
- * @property mixed $roles
- * @property \Illuminate\Support\Carbon $created_at
- * @property int $enable_multimedia
- * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
- * @property-read int|null $notifications_count
+ * @property string $last_login
+ * @property string $confirmation_token
+ * @property string $password_requested_at
+ * @property array $roles
+ * @property string $created_at
+ * @property boolean $enable_multimedia
+ * @property Bookmark[] $bookmarks
+ * @property Folder[] $folders
+ * @property Tag[] $tags
+ * @property UserConnection[] $userConnections
+ * @property-read int|null $bookmarks_count
+ * @property-read int|null $folders_count
+ * @property-read int|null $tags_count
+ * @property-read int|null $user_connections_count
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User query()
@@ -45,36 +48,49 @@ use Laravel\Passport\HasApiTokens;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereUsernameCanonical($value)
  * @mixin \Eloquent
  */
-class User extends Authenticatable
+class User extends Model
 {
+    /**
+     * The table associated with the model.
+     * 
+     * @var string
+     */
     protected $table = 'fos_user';
 
-    use HasApiTokens, Notifiable;
-
     /**
-     * The attributes that are mass assignable.
-     *
      * @var array
      */
-    protected $fillable = [
-        'name', 'email', 'password',
-    ];
+    protected $fillable = ['username', 'username_canonical', 'email', 'email_canonical', 'enabled', 'salt', 'password', 'last_login', 'confirmation_token', 'password_requested_at', 'roles', 'created_at', 'enable_multimedia'];
 
     /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    protected $hidden = [
-        'password', 'remember_token',
-    ];
+    public function bookmarks()
+    {
+        return $this->hasMany('App\Bookmark', 'user_id');
+    }
 
     /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
+    public function folders()
+    {
+        return $this->hasMany('App\Folder', 'user_id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function tags()
+    {
+        return $this->hasMany('App\Tag', 'user_id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function userConnections()
+    {
+        return $this->hasMany('App\UserConnection', 'user_id');
+    }
 }
