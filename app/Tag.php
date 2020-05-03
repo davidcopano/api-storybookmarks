@@ -40,6 +40,8 @@ class Tag extends Model
      */
     protected $fillable = ['user_id', 'title', 'color', 'created_at'];
 
+    public $timestamps = false;
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
