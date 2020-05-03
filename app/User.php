@@ -105,7 +105,7 @@ class User extends Authenticatable
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function userConnections()
+    public function connections()
     {
         return $this->hasMany('App\UserConnection', 'user_id');
     }

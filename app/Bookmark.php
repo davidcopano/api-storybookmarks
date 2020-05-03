@@ -72,6 +72,15 @@ class Bookmark extends Model
 
     public $timestamps = false;
 
+    public static function boot()
+    {
+        parent::boot();
+        // When a new record is created, we generate and assign a new GUID for it
+        self::creating(function ($model) {
+            $model->id = guid();
+        });
+    }
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
