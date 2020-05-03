@@ -13,7 +13,7 @@ class BookmarksController extends Controller
      */
     public function index()
     {
-        //
+        return auth()->user()->bookmarks()->paginate(5);
     }
 
     /**

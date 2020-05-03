@@ -16,6 +16,8 @@ use Illuminate\Http\Request;
 Route::post('login', 'Auth\LoginController@validateLogin')->name('login');
 Route::post('register', 'Auth\RegisterController@create')->name('register');
 
-Route::middleware('auth:api')->get('/', function (Request $request) {
-    return $request->user();
+Route::group(['middleware' => 'auth:api'], function() {
+    Route::resources([
+        'bookmarks' => 'BookmarksController'
+    ]);
 });

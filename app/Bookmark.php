@@ -66,6 +66,10 @@ class Bookmark extends Model
      */
     protected $fillable = ['user_id', 'tag_id', 'folder_id', 'title', 'url', 'color', 'note', 'created_at', 'public', 'expiration_date'];
 
+    protected $casts = [
+        'public' => 'boolean'
+    ];
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
