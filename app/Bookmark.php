@@ -72,6 +72,10 @@ class Bookmark extends Model
 
     public $timestamps = false;
 
+    protected $attributes = [
+        'public' => false
+    ];
+
     public static function boot()
     {
         parent::boot();
