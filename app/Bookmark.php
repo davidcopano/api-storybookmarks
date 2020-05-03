@@ -70,6 +70,8 @@ class Bookmark extends Model
         'public' => 'boolean'
     ];
 
+    public $timestamps = false;
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */

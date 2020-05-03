@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Bookmark;
 use Illuminate\Http\Request;
 
 class BookmarksController extends Controller
@@ -30,11 +31,21 @@ class BookmarksController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return Bookmark|\Illuminate\Database\Eloquent\Model
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'title' => 'required',
+            'url' => 'required',
+            'color' => 'required'
+        ]);
+        $request->merge([
+            'user_id' => auth()->user()->id,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+        return Bookmark::create($request->only('user_id', 'tag_id', 'folder_id', 'title', 'url', 'color', 'note', 'public', 'expiration_time'));
     }
 
     /**

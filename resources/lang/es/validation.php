@@ -148,6 +148,8 @@ return [
 
     'attributes' => [
         'username' => 'usuario',
-        'password' => 'contraseña'
+        'password' => 'contraseña',
+        'title' => 'título',
+        'url' => 'URL'
     ],
 ];
