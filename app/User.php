@@ -71,6 +71,11 @@ class User extends Authenticatable
         'enable_multimedia' => 'boolean'
     ];
 
+    public function getRolesAttribute()
+    {
+        return !empty($this->attributes['roles']) ? unserialize($this->attributes['roles']) : null;
+    }
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
