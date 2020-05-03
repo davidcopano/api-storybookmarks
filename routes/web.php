@@ -15,6 +15,8 @@ use Illuminate\Http\Request;
 
 Route::post('login', 'Auth\LoginController@validateLogin')->name('login');
 Route::post('register', 'Auth\RegisterController@create')->name('register');
+Route::post('forgot-password','Auth\ForgotPasswordController@reset')->name('forgot_password');
+Route::get('password/reset/{token}', 'ResetPasswordController@showResetForm')->name('password.reset');
 
 Route::group(['middleware' => 'auth:api'], function() {
     Route::resources([
