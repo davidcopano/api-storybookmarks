@@ -66,6 +66,11 @@ class User extends Authenticatable
      */
     protected $fillable = ['username', 'username_canonical', 'email', 'email_canonical', 'enabled', 'salt', 'password', 'last_login', 'confirmation_token', 'password_requested_at', 'roles', 'created_at', 'enable_multimedia'];
 
+    protected $casts = [
+        'enabled' => 'boolean',
+        'enable_multimedia' => 'boolean'
+    ];
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
