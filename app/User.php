@@ -2,7 +2,9 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
+use Eloquent;
+use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Auth\Authenticatable as AuthenticableTrait;
 
 /**
  * App\User
@@ -46,13 +48,15 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereSalt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereUsername($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereUsernameCanonical($value)
- * @mixin \Eloquent
+ * @mixin Eloquent
  */
-class User extends Model
+class User extends Eloquent implements Authenticatable
 {
+    use AuthenticableTrait;
+
     /**
      * The table associated with the model.
-     * 
+     *
      * @var string
      */
     protected $table = 'fos_user';

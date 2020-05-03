@@ -13,7 +13,7 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::post('login', 'Auth\LoginController@validateLogin');
+Route::post('login', 'Auth\LoginController@validateLogin')->name('login');
 
 Route::middleware('auth:api')->get('/', function (Request $request) {
     return $request->user();
