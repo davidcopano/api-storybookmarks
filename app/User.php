@@ -71,6 +71,8 @@ class User extends Authenticatable
         'enable_multimedia' => 'boolean'
     ];
 
+    public $timestamps = false;
+
     public function getRolesAttribute()
     {
         return !empty($this->attributes['roles']) ? unserialize($this->attributes['roles']) : null;

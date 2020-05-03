@@ -17,6 +17,9 @@ class LoginController extends Controller
         $credentials = $request->only('email', 'password');
         if (auth()->attempt($credentials)) {
             $api_token = auth()->user()->createToken('storybookmarks')->accessToken;
+            auth()->user()->update([
+                'last_login' => now()
+            ]);
             $user = auth()->user()->toArray();
             $user['api_token'] = $api_token;
             return $user;
