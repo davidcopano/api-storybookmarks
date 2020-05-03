@@ -18,6 +18,7 @@ Route::post('register', 'Auth\RegisterController@create')->name('register');
 
 Route::group(['middleware' => 'auth:api'], function() {
     Route::resources([
-        'bookmarks' => 'BookmarksController'
+        'bookmarks' => 'BookmarksController',
+        'folders' => 'FoldersController'
     ]);
 });

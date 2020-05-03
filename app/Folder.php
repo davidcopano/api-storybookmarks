@@ -54,6 +54,17 @@ class Folder extends Model
      */
     protected $fillable = ['user_id', 'name', 'color', 'created_at'];
 
+    public $timestamps = false;
+
+    public static function boot()
+    {
+        parent::boot();
+        // When a new record is about to create, we generate and assign a new GUID for it
+        self::creating(function ($model) {
+            $model->id = guid();
+        });
+    }
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */

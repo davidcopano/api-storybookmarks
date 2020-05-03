@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Bookmark;
+use App\Folder;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
-class BookmarksController extends Controller
+class FoldersController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +16,7 @@ class BookmarksController extends Controller
      */
     public function index()
     {
-        return auth()->user()->bookmarks()->paginate(5);
+        return auth()->user()->folders()->paginate(5);
     }
 
     /**
@@ -33,13 +33,12 @@ class BookmarksController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return Bookmark|\Illuminate\Database\Eloquent\Model
+     * @return Folder|\Illuminate\Database\Eloquent\Model
      */
     public function store(Request $request)
     {
         $request->validate([
-            'title' => 'required',
-            'url' => 'required',
+            'name' => 'required',
             'color' => 'required'
         ]);
         $request->merge([
@@ -48,20 +47,18 @@ class BookmarksController extends Controller
             'created_at' => now(),
             'updated_at' => now()
         ]);
-        return Bookmark::create($request->all());
+        return Folder::create($request->all());
     }
 
     /**
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Model|object
+     * @return Folder|Folder[]|\Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model
      */
     public function show($id)
     {
-        return Bookmark::findOrFail($id)
-                        ->with('folder', 'tag')
-                        ->first();
+        return Folder::findOrFail($id);
     }
 
     /**
@@ -80,7 +77,7 @@ class BookmarksController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return Bookmark|Bookmark[]|\Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model
+     * @return Folder|Folder[]|\Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model
      */
     public function update(Request $request, $id)
     {
@@ -88,16 +85,15 @@ class BookmarksController extends Controller
         // TODO -> Check if is required in the app
 
         $request->validate([
-            'title' => 'required',
-            'url' => 'required',
+            'name' => 'required',
             'color' => 'required'
         ]);
         $request->merge([
             'updated_at' => now()
         ]);
-        $bookmark = Bookmark::findOrFail($id);
-        $bookmark->update($request->all());
-        return $bookmark;
+        $folder = Folder::findOrFail($id);
+        $folder->update($request->all());
+        return $folder;
     }
 
     /**
@@ -112,8 +108,8 @@ class BookmarksController extends Controller
         // Param "_method" with value "DELETE" is required to work with Postman
         // TODO -> Check if is required in the app
 
-        $bookmark = Bookmark::findOrFail($id);
-        $bookmark->delete();
+        $folder = Folder::findOrFail($id);
+        $folder->delete();
         return response()->json(['message' => 'Deleted']);
     }
 }

@@ -150,6 +150,7 @@ return [
         'username' => 'usuario',
         'password' => 'contraseña',
         'title' => 'título',
-        'url' => 'URL'
+        'url' => 'URL',
+        'name' => 'nombre'
     ],
 ];
