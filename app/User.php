@@ -2,9 +2,9 @@
 
 namespace App;
 
-use Eloquent;
-use Illuminate\Contracts\Auth\Authenticatable;
-use Illuminate\Auth\Authenticatable as AuthenticableTrait;
+use Laravel\Passport\HasApiTokens;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 /**
  * App\User
@@ -50,9 +50,9 @@ use Illuminate\Auth\Authenticatable as AuthenticableTrait;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereUsernameCanonical($value)
  * @mixin Eloquent
  */
-class User extends Eloquent implements Authenticatable
+class User extends Authenticatable
 {
-    use AuthenticableTrait;
+    use HasApiTokens, Notifiable;
 
     /**
      * The table associated with the model.
