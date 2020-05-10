@@ -19,7 +19,10 @@ class TagsController extends Controller
      */
     public function index()
     {
-        return auth()->user()->tags()->paginate(5);
+        return auth()->user()
+                    ->tags()
+                    ->orderBy('created_at', 'DESC')
+                    ->paginate(10);
     }
 
     /**

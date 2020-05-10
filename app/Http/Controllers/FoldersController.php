@@ -16,7 +16,10 @@ class FoldersController extends Controller
      */
     public function index()
     {
-        return auth()->user()->folders()->paginate(5);
+        return auth()->user()
+                    ->folders()
+                    ->orderBy('created_at', 'DESC')
+                    ->paginate(10);
     }
 
     /**

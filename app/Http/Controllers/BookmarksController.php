@@ -16,7 +16,10 @@ class BookmarksController extends Controller
      */
     public function index()
     {
-        return auth()->user()->bookmarks()->paginate(5);
+        return auth()->user()
+                    ->bookmarks()
+                    ->orderBy('created_at', 'DESC')
+                    ->paginate(10);
     }
 
     /**
