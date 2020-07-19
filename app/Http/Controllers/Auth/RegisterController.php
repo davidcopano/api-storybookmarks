@@ -26,6 +26,14 @@ class RegisterController extends Controller
             'updated_at' => now(),
             'password' => Hash::make($request->get('password'))
         ]);
-        return User::create($request->all());
+        $user = User::create($request->all());
+        auth()->loginUsingId($user->id);
+        $api_token = auth()->user()->createToken('storybookmarks')->accessToken;
+        auth()->user()->update([
+            'last_login' => now()
+        ]);
+        $user = auth()->user()->toArray();
+        $user['api_token'] = $api_token;
+        return $user;
     }
 }
