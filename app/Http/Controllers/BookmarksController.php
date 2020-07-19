@@ -14,12 +14,31 @@ class BookmarksController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return auth()->user()
-                    ->bookmarks()
-                    ->orderBy('created_at', 'DESC')
-                    ->paginate(10);
+        $request->validate([
+            'order' => 'required|in:default,oldest_to_newest,a_to_z,z_to_a'
+        ]);
+        $bookmarks = auth()->user()->bookmarks();
+        switch ($request->get('order')) {
+            case 'default': {
+                $bookmarks = $bookmarks->orderBy('created_at', 'DESC');
+            }
+            break;
+            case 'oldest_to_newest': {
+                $bookmarks = $bookmarks->orderBy('created_at', 'ASC');
+            }
+            break;
+            case 'a_to_z': {
+                $bookmarks = $bookmarks->orderBy('title', 'ASC');
+            }
+            break;
+            case 'z_to_a': {
+                $bookmarks = $bookmarks->orderBy('title', 'DESC');
+            }
+            break;
+        }
+        return $bookmarks->paginate(10);
     }
 
     /**
