@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Bookmark;
 use App\Folder;
 use Exception;
 use Illuminate\Http\JsonResponse;
@@ -24,10 +25,7 @@ class FoldersController extends Controller
 
     public function getBookmarksById($id, Request $request)
     {
-        return auth()->user()
-                    ->folders()
-                    ->where('id', $id)
-                    ->with('bookmarks')
+        return Bookmark::where('folder_id', $id)
                     ->orderBy('created_at', 'DESC')
                     ->paginate(10);
     }
