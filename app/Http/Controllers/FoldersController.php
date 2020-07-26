@@ -22,6 +22,15 @@ class FoldersController extends Controller
                     ->paginate(10);
     }
 
+    public function getBookmarksById($id, Request $request)
+    {
+        return auth()->user()
+                    ->folders()
+                    ->with('bookmarks')
+                    ->orderBy('created_at', 'DESC')
+                    ->paginate(10);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
