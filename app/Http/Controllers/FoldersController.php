@@ -26,6 +26,7 @@ class FoldersController extends Controller
     {
         return auth()->user()
                     ->folders()
+                    ->where('id', $id)
                     ->with('bookmarks')
                     ->orderBy('created_at', 'DESC')
                     ->paginate(10);
