@@ -17,7 +17,7 @@ Route::post('login', 'Auth\LoginController@validateLogin')->name('login');
 Route::post('social-login', 'Auth\LoginController@socialLogin')->name('social_login');
 Route::post('register', 'Auth\RegisterController@create')->name('register');
 Route::post('forgot-password','Auth\ForgotPasswordController@reset')->name('forgot_password');
-Route::get('password/reset/{token}', 'ResetPasswordController@showResetForm')->name('password.reset');
+Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
 
 Route::group(['middleware' => 'auth:api'], function() {
     Route::resources([

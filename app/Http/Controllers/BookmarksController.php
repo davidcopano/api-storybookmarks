@@ -61,7 +61,7 @@ class BookmarksController extends Controller
     {
         $request->validate([
             'title' => 'required',
-            'url' => 'required|url',
+            'url' => 'required',
             'color' => 'required'
         ]);
         $request->merge([
