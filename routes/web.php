@@ -26,4 +26,5 @@ Route::group(['middleware' => 'auth:api'], function() {
         'tags' => 'TagsController',
     ]);
     Route::get('folders/{id}/bookmarks', 'FoldersController@getBookmarksById')->name('folders.get_bookmarks_by_id');
+    Route::get('search', 'SearchController')->name('search');
 });

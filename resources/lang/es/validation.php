@@ -151,6 +151,7 @@ return [
         'password' => 'contraseña',
         'title' => 'título',
         'url' => 'URL',
-        'name' => 'nombre'
+        'name' => 'nombre',
+        'query' => 'consulta'
     ],
 ];
