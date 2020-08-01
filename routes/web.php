@@ -20,7 +20,7 @@ Route::post('forgot-password','Auth\ForgotPasswordController@reset')->name('forg
 Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
 
 Route::group(['middleware' => 'auth:api'], function() {
-    Route::post('edit-profile', 'EditProfileController')->name('edit_profile');
+    Route::patch('edit-profile', 'EditProfileController')->name('edit_profile');
     Route::resources([
         'bookmarks' => 'BookmarksController',
         'folders' => 'FoldersController',
