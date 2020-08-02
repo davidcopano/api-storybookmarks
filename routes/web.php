@@ -17,8 +17,11 @@ Route::post('login', 'Auth\LoginController@validateLogin')->name('login');
 Route::post('social-login', 'Auth\LoginController@socialLogin')->name('social_login');
 Route::post('register', 'Auth\RegisterController@create')->name('register');
 Route::post('forgot-password','Auth\ForgotPasswordController@reset')->name('forgot_password');
-Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
-Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('password.update');
+
+Route::group(['middleware' => ['web']], function() {
+    Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
+    Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('password.update');
+});
 
 Route::group(['middleware' => 'auth:api'], function() {
     Route::patch('edit-profile', 'EditProfileController')->name('edit_profile');
