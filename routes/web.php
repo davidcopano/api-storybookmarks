@@ -21,6 +21,7 @@ Route::post('forgot-password','Auth\ForgotPasswordController@reset')->name('forg
 Route::group(['middleware' => ['web']], function() {
     Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
     Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('password.update');
+    Route::view('recovered-password', 'auth.passwords.recovered');
 });
 
 Route::group(['middleware' => 'auth:api'], function() {
