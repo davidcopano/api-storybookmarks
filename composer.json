@@ -17,7 +17,8 @@
         "laravel/tinker": "^2.0",
         "laravel/ui": "2.0",
         "laraveles/spanish": "^1.4",
-        "sudiptpa/guid": "^1.0"
+        "sudiptpa/guid": "^1.0",
+        "lcobucci/jwt": "3.3.3"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^2.6",
