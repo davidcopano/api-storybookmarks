@@ -13,10 +13,12 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::post('login', 'Auth\LoginController@validateLogin')->name('login');
-Route::post('social-login', 'Auth\LoginController@socialLogin')->name('social_login');
-Route::post('register', 'Auth\RegisterController@create')->name('register');
-Route::post('forgot-password','Auth\ForgotPasswordController@reset')->name('forgot_password');
+Route::group(['middleware' => 'cors'], function() {
+    Route::post('login', 'Auth\LoginController@validateLogin')->name('login');
+    Route::post('social-login', 'Auth\LoginController@socialLogin')->name('social_login');
+    Route::post('register', 'Auth\RegisterController@create')->name('register');
+    Route::post('forgot-password','Auth\ForgotPasswordController@reset')->name('forgot_password');
+});
 
 Route::group(['middleware' => ['web']], function() {
     Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
@@ -24,7 +26,7 @@ Route::group(['middleware' => ['web']], function() {
     Route::view('recovered-password', 'auth.passwords.recovered');
 });
 
-Route::group(['middleware' => ['auth:api']], function() {
+Route::group(['middleware' => ['cors', 'auth:api']], function() {
     Route::patch('edit-profile', 'EditProfileController')->name('edit_profile');
     Route::resources([
         'bookmarks' => 'BookmarksController',
