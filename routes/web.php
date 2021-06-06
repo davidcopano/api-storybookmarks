@@ -40,13 +40,25 @@ Route::group(['middleware' => ['cors', 'auth:api']], function() {
 });
 
 Route::get('/export-bookmarks-as-html', function() {
-    $bookmarks = Bookmark::where('user_id', 4)->limit(10)->get();
+    $bookmarks = Bookmark::where('user_id', 4)->get();
     $bookmarksArray = $bookmarks->map(function (Bookmark $bookmark) {
         return [
             $bookmark->title => $bookmark->url
         ];
     });
     $html = new NetscapeBookmarks($bookmarksArray);
+
+    $lines = explode("\n", $html);
+
+    $lines = array_map(function ($item) {
+        if(strpos($item, '<DT><H3>') === false) {
+            return $item;
+        }
+    }, $lines);
+
+    $lines = array_filter($lines);
+    $html = implode("\n", $lines);
+
     return response()->streamDownload(function () use ($html) {
         echo $html;
     }, 'bookmarks.html');

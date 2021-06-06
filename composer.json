@@ -19,7 +19,8 @@
         "laraveles/spanish": "^1.4",
         "lcobucci/jwt": "^4.1",
         "sudiptpa/guid": "^1.0",
-        "w3lifer/netscape-bookmarks": "^1.0"
+        "w3lifer/netscape-bookmarks": "^1.0",
+      "ext-dom": "*"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^2.6",
