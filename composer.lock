@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2cb613249a298d376743a44f8124b8fc",
+    "content-hash": "187c5ecb4175f5b2ab25c032d2432c8b",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -5667,6 +5667,49 @@
             "time": "2020-11-12T00:07:28+00:00"
         },
         {
+            "name": "w3lifer/netscape-bookmarks",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/w3lifer/netscape-bookmarks.git",
+                "reference": "6c11eb55610eca359868178c75cad38cc0a30eea"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/w3lifer/netscape-bookmarks/zipball/6c11eb55610eca359868178c75cad38cc0a30eea",
+                "reference": "6c11eb55610eca359868178c75cad38cc0a30eea",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "w3lifer\\netscapeBookmarks\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Roman Grinyov",
+                    "email": "w3lifer@gmail.com"
+                }
+            ],
+            "keywords": [
+                "bookmarks",
+                "netscape"
+            ],
+            "support": {
+                "issues": "https://github.com/w3lifer/netscape-bookmarks/issues",
+                "source": "https://github.com/w3lifer/netscape-bookmarks/tree/master"
+            },
+            "time": "2018-04-12T17:33:50+00:00"
+        },
+        {
             "name": "webmozart/assert",
             "version": "1.10.0",
             "source": {
@@ -9488,6 +9531,3 @@
     "platform-dev": [],
     "plugin-api-version": "2.0.0"
 }
-
-
-

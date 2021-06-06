@@ -1,6 +1,8 @@
 <?php
 
+use App\Bookmark;
 use Illuminate\Http\Request;
+use w3lifer\netscapeBookmarks\NetscapeBookmarks;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,4 +37,17 @@ Route::group(['middleware' => ['cors', 'auth:api']], function() {
     ]);
     Route::get('folders/{id}/bookmarks', 'FoldersController@getBookmarksById')->name('folders.get_bookmarks_by_id');
     Route::get('search', 'SearchController')->name('search');
+});
+
+Route::get('/export-bookmarks-as-html', function() {
+    $bookmarks = Bookmark::where('user_id', 4)->limit(10)->get();
+    $bookmarksArray = $bookmarks->map(function (Bookmark $bookmark) {
+        return [
+            $bookmark->title => $bookmark->url
+        ];
+    });
+    $html = new NetscapeBookmarks($bookmarksArray);
+    return response()->streamDownload(function () use ($html) {
+        echo $html;
+    }, 'bookmarks.html');
 });
