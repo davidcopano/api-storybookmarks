@@ -18,8 +18,12 @@ class SearchController extends Controller
                             ->where('title', 'LIKE',$likeQuery)
                             ->orWhere('url', 'LIKE', $likeQuery)
                             ->orWhere('note', 'LIKE', $likeQuery)
+                            ->orderBy('created_at', 'DESC')
                             ->get();
-        $folders = auth()->user()->folders()->where('name', 'LIKE', $likeQuery)->get();
+        $folders = auth()->user()->folders()
+            ->where('name', 'LIKE', $likeQuery)
+            ->orderBy('created_at', 'DESC')
+            ->get();
         return response()->json(compact('bookmarks', 'folders'));
     }
 }
